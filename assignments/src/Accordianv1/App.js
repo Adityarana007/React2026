@@ -3,66 +3,53 @@ import "./App.css";
 const faqs = [
   {
     title: "Where are these chairs assembled?",
-    text:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, quaerat temporibus quas dolore provident nisi ut aliquid ratione beatae sequi aspernatur veniam repellendus."
+    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, quaerat temporibus quas dolore provident nisi ut aliquid ratione beatae sequi aspernatur veniam repellendus.",
   },
   {
     title: "How long do I have to return my chair?",
-    text:
-      "Pariatur recusandae dignissimos fuga voluptas unde optio nesciunt commodi beatae, explicabo natus."
+    text: "Pariatur recusandae dignissimos fuga voluptas unde optio nesciunt commodi beatae, explicabo natus.",
   },
   {
     title: "Do you ship to countries outside the EU?",
-    text:
-      "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+    text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!",
   },
   {
     title: "Do you ship to countries outside the EU?",
-    text:
-      "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+    text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!",
   },
   {
     title: "Do you ship to countries outside the EU?",
-    text:
-      "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+    text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!",
   },
   {
     title: "Do you ship to countries outside the EU?",
-    text:
-      "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+    text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!",
   },
   {
     title: "Do you ship to countries outside the EU?",
-    text:
-      "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+    text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!",
   },
   {
     title: "Do you ship to countries outside the EU?",
-    text:
-      "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+    text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!",
   },
   {
     title: "Do you ship to countries outside the EU?",
-    text:
-      "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+    text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!",
   },
   {
     title: "Do you ship to countries outside the EU?",
-    text:
-      "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+    text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!",
   },
   {
     title: "Do you ship to countries outside the EU?",
-    text:
-      "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+    text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!",
   },
   {
     title: "Do you ship to countries outside the EU?",
-    text:
-      "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+    text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!",
   },
 ];
-
 
 export default function App() {
   return (
@@ -71,23 +58,38 @@ export default function App() {
     </div>
   );
 }
-function Accordion({data}) {
-  return <div className="accordian">
-    {data.map((faq, index) => (
-      <AccordionItem key={index} num={index} title={faq.title} text={faq.text} />
-    ))}
-  </div>;
+function Accordion({ data }) {
+  const [currOpen, setIsOpen] = useState(null);
+  return (
+    <div className="accordian">
+      {data.map((faq, index) => (
+        <AccordionItem
+          currOpen={currOpen}
+          onOpen={setIsOpen}
+          key={index}
+          num={index}
+          title={faq.title}
+        >
+          {faq.text}
+        </AccordionItem>
+      ))}
+    </div>
+  );
 }
 
-function AccordionItem({num,title,text}) {
-  const [isOpen, setIsOpen] = useState(false);
+function AccordionItem({ num, title, text, currOpen, onOpen, children }) {
+  // const [isOpen, setIsOpen] = useState(false);
+  const isOpen = currOpen === num;
   const handleToggle = () => {
-    setIsOpen(!isOpen);
-  }
-  return (<div className={`item ${isOpen ? "open" : ""}`} onClick={handleToggle}>
-    <p className="number">{num < 9 ? `0${num + 1  }` : num+1}</p>
-    <p className="title"> {title}</p>
-    <p className="icon">{isOpen ? "-" : "+"}</p>
-    {isOpen && <p className="content-box">{text}</p>}
-  </div>);
+    // setIsOpen(!isOpen);
+    onOpen(isOpen ? null : num);
+  };
+  return (
+    <div className={`item ${isOpen ? "open" : ""}`} onClick={handleToggle}>
+      <p className="number">{num < 9 ? `0${num + 1}` : num + 1}</p>
+      <p className="title"> {title}</p>
+      <p className="icon">{isOpen ? "-" : "+"}</p>
+      {isOpen && <p className="content-box">{children}</p>}
+    </div>
+  );
 }
