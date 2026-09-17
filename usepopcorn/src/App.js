@@ -50,15 +50,24 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+const KEY = "806bb978";
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
-   const [watched, setWatched] = useState(tempWatchedData);
+  const [watched, setWatched] = useState(tempWatchedData);
+
+  fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("dataa", data);
+      // setMovies(data.Search);
+    });
+
   return (
     <>
-      <NavBar movies={movies} >
+      <NavBar movies={movies}>
         <Logo />
         <Search />
-        <NumResults movies={movies}/>
+        <NumResults movies={movies} />
       </NavBar>
       <Main>
         <Box>
@@ -74,12 +83,8 @@ export default function App() {
   );
 }
 
-function NavBar({children }) {
-  return (
-    <nav className="nav-bar">
-      {children}
-    </nav>
-  );
+function NavBar({ children }) {
+  return <nav className="nav-bar">{children}</nav>;
 }
 function Logo() {
   return (
@@ -109,12 +114,8 @@ function Search() {
   );
 }
 
-function Main({children}) {
-  return (
-    <main className="main">
-      {children}
-    </main>
-  );
+function Main({ children }) {
+  return <main className="main">{children}</main>;
 }
 
 function Box({ children }) {
@@ -122,10 +123,7 @@ function Box({ children }) {
 
   return (
     <div className="box">
-      <button
-        className="btn-toggle"
-        onClick={() => setIsOpen((open) => !open)}
-      >
+      <button className="btn-toggle" onClick={() => setIsOpen((open) => !open)}>
         {isOpen ? "–" : "+"}
       </button>
       {isOpen && children}
@@ -242,5 +240,3 @@ function WatchedMovieItem({ movie }) {
     </li>
   );
 }
-
-
