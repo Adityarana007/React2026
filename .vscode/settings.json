@@ -1,0 +1,23 @@
+{
+  "editor.inlineSuggest.enabled": true,
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "javascript": true,
+    "typescript": true,
+    "json": true,
+    "python": true,
+    "java": true,
+    "csharp": true,
+    "go": true,
+    "ruby": true,
+    "php": true,
+    "yaml": true
+  }
+}

@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 
 const containerStyle = {
   display: "flex",
-  alignitems: "center",
+  alignItems: "center",
   gap: "16px",
 };
 
 const starContainerStyle = {
   display: "flex",
+  alignItems: "center",
   gap: "4px",
 };
 
@@ -40,11 +41,13 @@ export default function StarRating({
   }
 
   const textStyle = {
-    lineHeight: "0",
+    lineHeight: 1,
     margin: "0",
     color,
     fontSize: `${size / 1.5}px`,
     fontWeight: "bold",
+    display: "flex",
+    alignItems: "center",
   };
 
   return (
