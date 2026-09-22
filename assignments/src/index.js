@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './CurrencyConventor/App';
+import App from './useGeolocate/App';
+// import App from './CurrencyConventor/App';
 // import App from './TextExpander/App';
 // import App from './TipCalculator/App';
 // import App from './Accordianv1/App';
