@@ -5,7 +5,6 @@ function Timer({dispatch, secondsRemaining}) {
     const seconds = secondsRemaining % 60
     useEffect(() => {
         const timerId = setInterval(() => {
-            console.log('tick')
             dispatch({type: "tick"})
         }, 1000)
         return () => clearInterval(timerId)
