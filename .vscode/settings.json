@@ -19,5 +19,6 @@
     "ruby": true,
     "php": true,
     "yaml": true
-  }
+  },
+  "git.ignoreLimitWarning": true
 }
