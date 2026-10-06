@@ -10,7 +10,6 @@ import Progress from "./components/Progress";
 import FinishScreen from "./components/FinishScreen";
 import Timer from "./components/Timer";
 import Footer from "./components/Footer";
-import { QuizProvider, useQuiz } from "./contexts/QuizContext";
 
 const SECS_PER_QUESTION = 30;
 
@@ -78,20 +77,28 @@ function reducer(state, action) {
 }
 
 const App = () => {
-  // const [state, dispatch] = useReducer(reducer, initialState);
-  const {   questions,
-        status,
-        index,
-        answer,
-        points,
-        highscore,
-        secondsRemaining,
-        numQuestions,
-        maxPossiblePoints, dispatch} = useQuiz();
-  
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { questions, status, index, answer, points, highscore, secondsRemaining } = state;
 
+  const numQuestions = questions.length;
+  const maxPossiblePoints = questions.reduce(
+    (prev, curr) => prev + curr.points,
+    0,
+  );
+
+  useEffect(() => {
+    fetch("http://localhost:8000/questions")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        dispatch({ type: "dataReceived", payload: data });
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch({ type: "dataFailed" });
+      });
+  }, []);
   return (
-
     <div className="app">
       <Header />
 
@@ -132,7 +139,6 @@ const App = () => {
         )}
       </Main>
     </div>
-
   );
 };
 
